@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PrimeFibo</title>
+</head>
+<body>
+	<h1>Enter a range to find the prime fibonacci numbers in between</h1>
+	Starting No:
+	<input type="number" name="" id="lnumber">
+	<br><br>
+	Ending No:
+	<input type="number" name="" id="number">
+	<br><br>
+	<button onclick="pfib()">submit</button>
+	<script type="text/javascript">
+
+		const pfib = () => {
+			var lnum = document.getElementById("lnumber").value;
+			var num = document.getElementById("number").value;
+			const fibarray = [0,1];
+			var isPrime;
+			for(var i = 2; i<=num; i++){
+				fibarray.push(fibarray[i-2]+fibarray[i-1]);
+			}
+			for (var x = 0; x <=num ; x++) {
+				isPrime = 0;
+				if(fibarray[x] >= num || fibarray[x] < lnum){
+					fibarray[x] = " ";
+				}
+				else
+				{
+					for(var y = 1; y <= fibarray[x]; y++){
+						if(fibarray[x] % y == 0){
+							isPrime = isPrime + 1;
+						}
+					}
+					if(isPrime == 2){
+						document.write("<h3>"+fibarray[x]+ "</h3>");
+					}
+					else{
+						fibarray[x] = " ";
+					}
+				}
+			}
+		}
+		//console.log(fib(40));
+	</script>
+</body>
+</html>

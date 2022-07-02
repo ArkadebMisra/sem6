@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Form validation</title>
+	<style type="text/css">
+		.red{
+			color: red;
+		}
+		.green{
+			color: green;
+		}
+		.lab{
+			height: 420px; 
+			width: 200px;
+			background-color: black;
+			color: white;
+			margin-left: 400px;
+			padding-left: 50px;
+			padding-top: 30px;
+			margin-top: 100px;
+			font-size: 17px;
+			border-radius: 50px;
+		}
+		.inp{
+			height: 420px; 
+			width: 220px;
+			background-color: black;
+			color: white;
+			padding-left: 40px;
+			padding-top: 30px;
+			margin-left: 560px;
+			margin-top: -450px;
+			border-radius: 50px;
+		}
+		.labin{
+			margin-left: 140px;
+		}
+		.die{
+			background-color: yellow;
+			margin-top: -450px;
+			margin-left: 950px;
+			height:300px;
+			width: 200px;
+			padding-top: 45px;
+			font-size: 25px;
+			padding-left: 50px;
+		}
+	</style>
+</head>
+<body>
+	<div class="labin">
+		<div class="lab">
+			<label>Name:</label><br><br>
+			<label>D.O.B:</label><br><br>
+			<label>Father's Name:</label><br><br>
+			<label>Mother's Name:</label><br><br>
+			<label>Year Of Passout:</label><br><br>
+			<label>Percentage:</label><br><br>
+			<label>Mobile Number:</label><br><br>
+			<label>Email Id:</label><br><br>
+			<label>Password:</label><br><br>
+			<label>Retype Password:</label>
+		</div>
+			
+		<div class="inp">
+			<form>
+				<input type="text" id="name" onkeypress="press(event)"><br><br>			
+				<input type="date" id="dob" ><br><br>							
+				<input type="text" id="fname" onkeypress="fpress(event)"><br><br>
+				<input type="text" id="mname" onkeypress="mpress(event)"><br><br>
+				<input type="date" id="passout"><br><br>
+				<input type="text" id="per" onkeypress="ppress(event)"><br><br>
+				<input type="text" id="mob" onkeypress="mobpress(event)"><br><br>
+				<input type="text" id="mail" onkeypress="mlpress(event)"><br><br>
+				<input type="password" id="pass" onkeypress="passpress(event)"><br><br>
+				<input type="password" id="repass" onkeypress="repress(event)"><br><br>
+			</form>
+		</div>
+	</div>
+	<div class="die">
+		<div id="nerror"></div><br>
+		<div id="error"></div><br>
+		<div id="ferror"></div><br>
+		<div id="merror"></div><br>
+		<div id="nerror"></div><br>
+		<div id="perror"></div><br>
+		<div id="moberror"></div><br>
+		<div id="nerror"></div><br>
+		<div id="passerror"></div><br>
+		<div id="repasserror"></div><br>
+	</div>
+	
+	
+</body>
+<script type="text/javascript">
+	function press(event) {
+		let error = document.getElementById("nerror");
+		if((event.keyCode>64 && event.keyCode<91) || (event.keyCode>96 && event.keyCode<123) || (event.keyCode == 32))
+		{
+			console.log("Yes");
+			error.innerHTML ="<div class='green'>Valid.</div>";
+		}
+		else
+		{
+			error.innerHTML ="<div class='red'>Can only use letters for name.</div>";
+			alert("Can only use letters for name.");
+		}
+	}
+	function fpress(e) {
+		let error = document.getElementById("ferror");
+		if((e.keyCode>64 && e.keyCode<91) || (e.keyCode>96 && e.keyCode<123) || (e.keyCode == 32))
+		{
+			console.log("Yes");
+			error.innerHTML ="<div class='green'>Valid.</div>";
+		}
+		else
+		{
+			error.innerHTML ="<div class='red'>Can only use letters for name.</div>";
+			alert("Can only use letters for name.");
+		}
+	}
+	function mpress(e) {
+		let error = document.getElementById("merror");
+		if((e.keyCode>64 && e.keyCode<91) || (e.keyCode>96 && e.keyCode<123) || (e.keyCode == 32))
+		{
+			console.log("Yes");
+			error.innerHTML ="<div class='green'>Valid.</div>";
+		}
+		else
+		{
+			error.innerHTML ="<div class='red'>Can only use letters for name.</div>";
+			alert("Can only use letters for name.");
+		}
+	}
+	function ppress(e) {
+		let error = document.getElementById("perror");
+		let percent = document.getElementById("per").value;
+
+		if(e.keyCode>47 && e.keyCode<58)
+		{
+			if(percent.length > 2)
+			{
+				error.innerHTML ="<div class='red'>Percentage has to be a 3 digit number or less.</div>";
+				alert("Percentage has to be a 3 digit number or less.");
+
+				
+			}
+			else
+			{
+				if(parseInt(percent) > 100)
+				{
+					error.innerHTML ="<div class='red'>Acquired percentage cannot be greater than 100%.</div>";
+					alert("Acquired percentage cannot be greater than 100%.");
+				}
+				else
+				{
+					error.innerHTML ="<div class='green'>Valid.</div>";
+					console.log("Yes")
+				}
+				
+			}
+		}
+		else
+		{
+			error.innerHTML ="<div class='red'>Percentage has to be input in integers.</div>";
+			alert("Percentage has to be input in integers.");
+		}
+	}
+	function mobpress(e) {
+		let error = document.getElementById("moberror");
+		let mobile = document.getElementById("mob").value;
+		if(e.keyCode>47 && e.keyCode<58)
+		{
+			if(mobile.length < 9 || mobile.length > 9)
+			{
+				error.innerHTML ="<div class='red'>Mobile has to be a 10 digit number.</div>";
+				alert("Invalid");
+			}
+			else
+			{
+				error.innerHTML ="<div class='green'>Valid.</div>";
+				console.log("Yes")
+			}
+		}
+		else
+		{
+			error.innerHTML ="<div class='red'>Mobile has to be a 10 digit number.</div>";
+			alert("Mobile has to be a 10 digit number.");
+		}
+	}
+	function passpress(e) {
+		let error = document.getElementById("passerror");
+		let password = document.getElementById("pass").value;
+		if(password.length < 8)
+		{
+			error.innerHTML ="<div class='red'>Password must be minimum 8 characters.</div>";
+			alert("Password must be minimum 8 characters");
+		}
+		else
+		{
+			error.innerHTML ="<div class='green'>Valid.</div>";
+			console.log("Yes");
+		}
+	}
+	function repress(e) {
+		let error = document.getElementById("repasserror");
+		let repassword = document.getElementById("repass").value;
+		if(repassword.length < 8)
+		{
+			error.innerHTML ="<div class='red'>Password must be minimum 8 characters.</div>";
+			alert("Password must be minimum 8 characters");
+		}
+		else
+		{
+			error.innerHTML ="<div class='green'>Valid.</div>";
+			console.log("Yes");
+		}
+	}
+	/*
+	function keypress()
+	{
+		let namew = document.getElementById("name");
+		if(namew.value.length >6 )
+		{
+			alert("long")
+		}
+	}
+	*/
+</script>
+</html>

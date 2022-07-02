@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PrimeFibo</title>
+</head>
+<body>
+	<h1>Enter a range to find the armstrong numbers in between</h1>
+	Starting No:
+	<input type="number" name="" id="lnumber">
+	<br><br>
+	Ending No:
+	<input type="number" name="" id="number">
+	<br><br>
+	<button onclick="arm()">submit</button>
+
+	<script type="text/javascript">
+
+		function arm()
+		{
+			var lnum = document.getElementById("lnumber").value;
+			var num = document.getElementById("number").value;
+			var temp;
+			var sum=0;
+			var r;
+
+			for (var i = lnum; i <= num; i++) {
+
+				temp = i;
+				sum = 0;
+				while(temp > 0)
+				{
+					r = temp % 10;
+					sum += r * r * r;
+					temp = parseInt(temp/10);
+				}
+				if(sum == i){
+					document.write("<h3>"+ i + "</h3>");
+					console.log("Yes");
+				}
+			}
+		}
+	</script>
+</body>
+</html>

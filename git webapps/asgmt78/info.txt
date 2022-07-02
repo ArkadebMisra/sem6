@@ -1,0 +1,12 @@
+add_user.html
+add_user.jsp
+user_list.jsp
+edit_user.jsp
+update_user.jsp
+delete_user.jsp
+
+
+login.jsp
+login_back.jsp
+dash.jsp
+logout.jsp

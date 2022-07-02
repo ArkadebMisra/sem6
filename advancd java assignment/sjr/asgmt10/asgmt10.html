@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://code.jquery.com/jquery-3.6.0.js" ></script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+	<title>asgmt10</title>
+	<style>
+	.center {
+		margin: auto;
+		width: 30%;
+		border: 3px solid green;
+		padding: 10px;
+		text-align: center
+	}
+	</style>
+</head>
+
+<body>
+	<h1 class="text-center">Assignment 10</h1>
+	<br>
+	<div class="center">
+		<span id="span_content">0</span>
+	</div>
+
+	<div class="center" style="border:0px;">
+		<button id="dicrease" class="btn btn-primary">dicrease</button>
+		<button id="increase" class="btn btn-primary" >increase</button>
+
+	</div>
+	<script type="text/javascript">
+		$('document').ready(function(){
+			$('#increase').click(function(){
+				let content = parseInt($('#span_content').html());
+				content+=1;
+				$('#span_content').html(content);
+			});
+
+			$('#dicrease').click(function(){
+				let content = parseInt($('#span_content').html());
+				content-=1;
+				$('#span_content').html(content);
+			});
+
+		});
+
+	</script>
+</body>
+
+</html>

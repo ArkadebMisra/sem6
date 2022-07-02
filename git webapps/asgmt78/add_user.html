@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<!-- CSS only -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+	<title>Add User</title>
+</head>
+<body>
+	<div class="container h-100">
+		<div class="row h-100 justify-content-center align-items-center">
+			<div class="col-10 col-md-8 col-lg-6">
+				<!-- Form -->
+				<h1 align="center">add a user</h1>
+				<form action="add_user.jsp" method="post">
+
+					<div class="form-group">
+						<label for="name" class="form-label">Name</label>
+						<input type="text" class="form-control" id="name" name="name">
+					</div>
+
+					<div class="form-group">
+						<label for="city" class="form-label">City</label>
+						<input type="text" class="form-control" id="city" name="city">
+					</div>
+
+					<div class="form-group">
+						<label for="age" class="form-label">Age</label>
+						<input type="text" class="form-control" id="age" name="age">
+					</div>
+
+					<div class="form-group">
+						<label for="email" class="form-label">Email</label>
+						<input type="text" class="form-control" id="email" name="email">
+					</div>
+
+					<div class="form-group">
+						<label for="phone" class="form-label">Phone</label>
+						<input type="text" class="form-control" id="phone" name="phone">
+					</div>
+
+					<br>
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary">add user</button>
+					</div>
+				</form>
+				<!-- Form end -->
+
+				<p align="center" style="padding:5em"><a href="user_list.jsp">View Users</a></p>
+
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

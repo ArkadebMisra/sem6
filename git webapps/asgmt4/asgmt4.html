@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+</head>
+<body>
+	<div class="container h-100">
+		<div class="row h-100 justify-content-center align-items-center">
+			<div class="col-10 col-md-8 col-lg-6">
+				<h1 class="text-center">Enter a number and check</h1>
+				<form action="back.jsp" method="post">
+					<div class="form-group">
+						<label for="inp1" class="form-label">Enter Number</label>
+						<input class="form-control" type="number" name="inp1" id="inp1"
+						placeholder="Enter Number"><br><br>
+					</div>
+					<div class="form-group">
+						<label for="sel" class="form-label">Select an option</label>
+						<select class="form-control" id="sel" name="sel">
+							<option value="0">Factorial</option>
+							<option value="1">Palindrome</option>
+							<option value="2">Armstrong</option>
+							<option value="3">Fibonacci</option>
+						</select>
+					<div class="form-group">
+					<br><br>
+					<button type="sublime" class="btn btn-primary">
+						Submit
+					</button><br><br>
+				</form>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

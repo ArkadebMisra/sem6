@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MyCalculator</title>
+	<title>My Calculator</title>
+    <link rel="stylesheet" href="style.css">                                                  
+</head>
+<body>
+	<form name="calc">
+		<table border=2>
+			<tr><td colspan=4><div id="display">
+
+            </div></td></tr>
+			<tr>
+			<td><input type=button value="0" OnClick="input('0')"></td>
+			<td><input type=button value="1" OnClick="input('1')"></td>
+			<td><input type=button value="2" OnClick="input('2')"></td>
+			<td><input type=button value="+" OnClick="input('+')"></td>
+			</tr>
+			<tr>
+			<td><input type=button value="3" OnClick="input('3')"></td>
+			<td><input type=button value="4" OnClick="input('4')"></td>
+			<td><input type=button value="5" OnClick="input('5')"></td>
+			<td><input type=button value="-" OnClick="input('-')"></td>
+			</tr>
+			<tr>
+			<td><input type=button value="6" OnClick="input('6')"></td>
+			<td><input type=button value="7" OnClick="input('7')"></td>
+			<td><input type=button value="8" OnClick="input('8')"></td>
+			<td><input type=button value="*" OnClick="input('*')"></td>
+		    </tr>
+		    <tr>
+			<td><input type=button value="9" OnClick="input('9')"></td>
+			<td><input type=button value="C" OnClick="clear_sc()"></td>
+			<td><input type=button value="=" OnClick="calculate()"></td>
+			<td><input type=button value="/" OnClick="input('/')"></td>
+			</tr>
+		</table>
+	</form>
+	<script type="text/javascript" src="calculator.js"></script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Form validation</title>
+	<style type="text/css">
+		/* Style inputs with type="text", select elements and textareas */
+		input[type=text], input[type=password],  input[type=date], select, textarea {
+		  width: 100%; /* Full width */
+		  padding: 12px; /* Some padding */
+		  border: 1px solid #ccc; /* Gray border */
+		  border-radius: 4px; /* Rounded borders */
+		  box-sizing: border-box; /* Make sure that padding and width stays in place */
+		  margin-top: 6px; /* Add a top margin */
+		  margin-bottom: 16px; /* Bottom margin */
+		  resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+		}
+
+		/* Style the submit button with a specific background color etc */
+		input[type=submit] {
+		  background-color: #04AA6D;
+		  color: white;
+		  padding: 12px 20px;
+		  border: none;
+		  border-radius: 4px;
+		  cursor: pointer;
+		}
+
+		/* When moving the mouse over the submit button, add a darker green color */
+		input[type=submit]:hover {
+		  background-color: #45a049;
+		}
+
+		/* Add a background color and some padding around the form */
+		.container {
+		  width: 50%;
+		  border-radius: 5px;
+		  background-color: #f2f2f2;
+		  padding: 20px;
+		}
+
+		.feedback {
+		  width: 90%;
+		  text-align: center;
+		  border-radius: 5%;
+		  background-color: white;
+		  padding: 20px;
+		}
+
+		.red{
+			color: red;
+		}
+		.green{
+			color: green;
+		}
+
+	</style>
+</head>
+<body>
+	<div style="justify-content: center; padding-left: 25%;">
+
+		<div class="container">
+			<div class="feedback" id="error"></div>
+			<h1 style="text-align: center">Enter Details</h1>
+
+			<form action="action_page.php">
+
+			<label for="name">Name</label>
+			<input type="text" name="name" id="name" onkeypress="press(event)">
+
+			<label for="dob">D.O.B:</label>
+			<input type="date" id="dob" name="dob">
+
+			<label for="fname">Fathers Name</label>
+			<input type="text" id="fname" name="fname"  onkeypress="press(event)">
+
+			<label for="mname">Mother's Name:</label>
+			<input type="text" id="mname" name="mname" onkeypress="press(event)">
+
+			<label for="passout">Year Of Passout:</label>
+			<input name="passout" type="date" id="passout">
+
+			<label for="per">Percentage:</label>
+			<input type="text" id="per" name="per"onkeypress="ppress(event)">
+
+			<label for="mob">Mobile Number:</label>
+			<input type="text" id="mob" name="mob" onkeypress="mobpress(event)">
+
+			<label for="mail">Email Id:</label>
+			<input type="text" id="mail" name="mail" onkeypress="mlpress(event)">
+
+			<label for="pass">Password:</label>
+			<input type="password" id="pass" name="pass" onkeypress="passpress(event)">
+
+			<label for="repass">Retype Password:</label>
+			<input type="password" id="repass" name="repass" onkeypress="repress(event)">
+			<br>
+			<input type="submit" value="Submit">
+
+		  </form>
+		</div>
+	</div>
+
+
+</body>
+<script type="text/javascript">
+	function press(event) {
+		let error = document.getElementById("error");
+		if((event.keyCode>64 && event.keyCode<91) || (event.keyCode>96 && event.keyCode<123) || (event.keyCode == 32))
+		{
+			error.innerHTML ="<div class='green'>Valid.</div>";
+		}
+		else
+		{
+			error.innerHTML ="<div class='red'>Can only use letters for name.</div>";
+			alert("Can only use letters for name.");
+		}
+	}
+
+	function ppress(e) {
+		let error = document.getElementById("error");
+		let percent = document.getElementById("per").value;
+		// console.log(percent)
+		last_pressed_key = String.fromCharCode(e.keyCode);
+		percent += last_pressed_key;
+		console.log(percent);
+
+		if(e.keyCode>47 && e.keyCode<58){
+
+			if(parseInt(percent) > 100){
+				alert("percentage can not be greater than 100")
+				error.innerHTML ="<div class='red'>percentage can not be greater than 100</div>";
+
+			}
+			else{
+				error.innerHTML ="<div class='green'>Valid.</div>";
+			}
+
+		}
+		else{
+			error.innerHTML ="<div class='red'>Percentage has to be input in integers.</div>";
+			alert("Percentage has to be input in integers.");
+		}
+	}
+
+
+	function mobpress(e) {
+		let error = document.getElementById("error");
+		let mobile = document.getElementById("mob").value;
+		if(e.keyCode>47 && e.keyCode<58)
+		{
+			if(mobile.length < 9 || mobile.length > 9)
+			{
+				error.innerHTML ="<div class='red'>Mobile has to be a 10 digit number.</div>";
+				// alert("Invalid");
+			}
+			else
+			{
+				error.innerHTML ="<div class='green'>Valid.</div>";
+				console.log("Yes")
+			}
+		}
+		else
+		{
+			error.innerHTML ="<div class='red'>Mobile has to be a 10 digit number.</div>";
+			alert("Mobile has to be a 10 digit number.");
+		}
+	}
+
+	function passpress(e) {
+		let error = document.getElementById("error");
+		let password = document.getElementById("pass").value;
+		if(password.length < 8)
+		{
+			error.innerHTML ="<div class='red'>Password must be minimum 8 characters.</div>";
+			// alert("Password must be minimum 8 characters");
+		}
+		else
+		{
+			error.innerHTML ="<div class='green'>Valid.</div>";
+			console.log("Yes");
+		}
+	}
+	function repress(e) {
+		let error = document.getElementById("error");
+		let password = document.getElementById("pass").value;
+		let repassword = document.getElementById("repass").value+String.fromCharCode(e.keyCode);
+		if(repassword != password)
+		{
+			error.innerHTML ="<div class='red'>Password do not match</div>";
+		}
+		else
+		{
+			error.innerHTML ="<div class='green'>Valid.</div>";
+		}
+	}
+</script>
+</html>

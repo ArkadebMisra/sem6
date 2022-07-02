@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://code.jquery.com/jquery-3.6.0.js" ></script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+	<title>asgmt10</title>
+	<style>
+	.center {
+		margin: auto;
+		width: 35%;
+		border: 3px solid green;
+		padding: 10px;
+		text-align: center
+	}
+	</style>
+</head>
+
+<body>
+	<h1 class="text-center">Change Image</h1>
+	<br>
+	<div class="center">
+		<img src="duck.jpg" width="500px" height="300px" id="image" name="img1">
+	</div>
+
+	<div class="center" style="border:0px;">
+		<button id="change" class="btn btn-primary">Change</button>
+	</div>
+	<script type="text/javascript">
+		$('document').ready(function(){
+			$('#change').click(function(){
+				let img = $('#image').attr('name');
+				if(img=="img1"){
+					$('#image').attr('src', 'lizard.jpg');
+					$('#image').attr('name', 'img2');
+				}
+				else{
+					$('#image').attr('src', 'duck.jpg');
+					$('#image').attr('name', 'img1');
+				}
+			});
+
+		});
+
+	</script>
+</body>
+
+</html>
