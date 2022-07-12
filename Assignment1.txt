@@ -1,0 +1,250 @@
+SHOW databases;
+DROP DATABASE library;
+CREATE DATABASE library;
+USE library;
+CREATE TABLE Member
+	(Member_Id INT(5) NOT NULL,
+	Member_Name varchar(30) NOT NULL,
+    Member_Address varchar(50),
+    Acc_Open_Date date,
+    Membership_Type varchar(20),
+	Fees_Paid int(4),
+    Max_Book_Allowed int(2),
+    Penalty_Amount decimal(7, 2));
+desc Member;
+alter table Member add constraint M1 primary key(Member_Id);
+alter table Member add constraint M2 check(Membership_type in('Lifetime','Annual', 'Half Yearly', 'Quarterly'));
+alter table Member add constraint M3 check(Max_Book_Allowed<7);
+alter table Member add constraint M4 check(Penalty_Amount<=1000);
+
+create table Books
+	(Book_No INT(6) NOT NULL,
+    Book_Name varchar(30) NOT NULL,
+    Author_Name varchar(30),
+    Cost decimal(7, 2),
+    Catagory varchar(10));
+    
+alter table Books add constraint B1 primary key(Book_No);
+alter table Books add constraint B2 check( Catagory in ('Science',  'Database', 'System', 'Others'));
+    
+create table Issue
+	(Lib_Issue_Id INT(10),
+    Book_No int(6),
+    Member_Id int(5),
+    Issue_Date date,
+    Return_Date date);
+    
+alter table Issue add constraint I1 primary key(Lib_Issue_id);
+alter table Issue add constraint I2 foreign key(Member_Id) references Member(Member_Id);
+alter table Issue add constraint I3 foreign key(Book_No) references Books(Book_No);
+desc ISSUE;
+
+
+
+/* data entry*/
+
+/* inserting into member table */
+
+insert into member
+values (1,'Sayantan Sinha', 'Pune', '2010-12-10', 'Lifetime', 2000, 6, 50);
+
+insert into member
+values (2, 'Abhirup Sarkar', 'Kolkata', '2011-1-19', 'Annual', 1400, 3, 0);
+
+insert into member
+values (3, 'Ritesh, Bhuniya', 'Gujarat', '2011-2-20', 'Quarterly', 350, 2, 100);
+
+insert into member
+values (4, 'Paresh sen', 'Tripura', '2011-3-21', 'Half yearly', 700, 1, 200);
+
+insert into member
+values (5, 'Sohini Haldar', 'Birbhum', '2011-4-11', 'Lifetime', 2000, 6, 10);
+
+insert into member
+values (6, 'Suparna Biswas', 'Kolkata', '2011-4-12', 'Half Yearly', 700, 1, 0);
+
+insert into member
+values (7, 'Suranjana Basu', 'Purulia', '2011-6-30', 'Annual', 1400, 3, 50);
+
+insert into member
+values (8, 'Arpita Roy', 'Kolkata', '2011-7-31', 'Half yearly', 700, 1, 0);
+
+
+/* inserting into books table */
+
+insert into books
+values (101, 'Let us C', 'Denis Ritchie', 450, 'Others');
+
+insert into books
+values (102, 'Oracle – Complete Ref', 'Loni', 550, 'Database');
+
+insert into books
+values (103, 'Visual Basic 10', 'BPB', 700, 'Others');
+
+insert into books
+values (104, 'Mastering SQL', 'Loni', 450, 'Database');
+
+insert into books
+values (105, 'PL SQL-Ref', 'Scott Urman', 750, 'Database');
+
+insert into books
+values (106, 'UNIX', 'Sumitava Das', 300, 'System');
+
+insert into books
+values (107, 'Optics', 'Ghatak', 600, 'Science');
+
+insert into books
+values (108, 'Data Structure', 'G.S. Baluja', 350, 'Others');
+
+/* inserting into issue table */
+
+
+insert into issue
+values (7001, 101, 1, '2011-1-10', default);
+
+insert into issue
+values (7002, 102, 2, '2011-1-25', default);
+
+insert into issue
+values (7003, 104, 1, '2011-2-01', default);
+
+insert into issue
+values (7004, 104, 2, '2011-3-15', default);
+
+insert into issue
+values (7005, 101, 4, '2011-4-04', default);
+
+insert into issue
+values (7006, 108, 5, '2011-4-12', default);
+
+insert into issue
+values (7007, 101, 8, '2011-8-01', default);
+
+
+/* Assignment2
+queries */
+
+select book_name
+from books
+where cost= (select max(cost) from books);
+
+
+select min(cost) as minimum_cost,
+avg(cost) as average_cost,
+sum(cost) as total_cost
+from books;
+
+select m.member_id, m.member_name
+from member as m, issue as i
+where m.member_id = i.member_id and (i.issue_date between '2011-01-26' and '2011-04-14');
+
+select book_name, author_name, catagory
+from books
+where catagory!='others';
+
+select book_name, author_name
+from books
+where author_name like '____t%';
+
+select count(*)
+from books
+where cost>350;
+
+select count(distinct author_name)
+from books;
+
+/* calculate numaric functions*/
+
+select abs(-167) as absolute_number;
+
+select power(8, 6);
+
+select round(134.56789, 2);
+
+select sqrt(144);
+
+select ceiling(13.15);
+
+select floor(13.15);
+
+/*----------------------------------------*/
+
+select extract(year from current_date);
+select extract(month from current_date);
+select extract(day from current_date);
+
+select substring('INFOSYS', 3, 4);
+
+select ascii('a');
+select ascii('s');
+
+select length("infosys");
+
+
+SELECT REPLACE("INFOSYS", "S", "T");
+
+/*---------------------------*/
+
+select member_name, member_address
+from member
+where member_address='Kolkata';
+
+select book_name
+from books 
+where cost between 300 and 500;
+
+select member_name
+from member
+where Membership_Type="Half Yearly";
+
+select member_name
+from member
+where extract(year from Acc_Open_Date)=2011;
+
+select m.Penalty_Amount
+from member as m, books as b, issue as i
+where b.book_no=i.book_no and m.member_id=i.member_id and b.book_name="Let us C";
+
+select m.member_name, m.max_book_allowed
+from member as m, issue as i
+where m.member_id=i.member_id and extract(month from i.issue_date)=1;
+
+select m.member_name
+from member as m
+where m.member_id not in(select member_id from issue);
+
+select book_name
+from books
+where author_name="loni" and cost<600;
+
+select *
+from issue
+where return_date=null;
+
+select book_name
+from books
+where catagory="Science" or catagory="Database";
+
+select member_name, penalty_amount
+from member
+order by(penalty_amount);
+
+select book_name, catagory
+from books
+order by(catagory);
+
+select book_name, cost
+from books
+order by(-cost);
+
+select book_name
+from books
+where book_name like '%sql%';
+
+select member_name
+from member
+where member_name like's%';
+
+select member_name
+from member
+where member_name like's%' or member_name like 'a%' or member_name like '%t%';

@@ -1,0 +1,366 @@
+SHOW databases;
+/*DROP DATABASE library;*/
+/*CREATE DATABASE library;*/
+USE library;
+CREATE TABLE Member
+	(Member_Id INT(5) NOT NULL,
+	Member_Name varchar(30) NOT NULL,
+    Member_Address varchar(50),
+    Acc_Open_Date date,
+    Membership_Type varchar(20),
+	Fees_Paid int(4),
+    Max_Book_Allowed int(2),
+    Penalty_Amount decimal(7, 2));
+desc Member;
+alter table Member add constraint M1 primary key(Member_Id);
+alter table Member add constraint M2 check(Membership_type in('Lifetime','Annual', 'Half Yearly', 'Quarterly'));
+alter table Member add constraint M3 check(Max_Book_Allowed<7);
+alter table Member add constraint M4 check(Penalty_Amount<=1000);
+
+create table Books
+	(Book_No INT(6) NOT NULL,
+    Book_Name varchar(30) NOT NULL,
+    Author_Name varchar(30),
+    Cost decimal(7, 2),
+    Catagory varchar(10));
+    
+alter table Books add constraint B1 primary key(Book_No);
+alter table Books add constraint B2 check( Catagory in ('Science',  'Database', 'System', 'Others'));
+    
+create table Issue
+	(Lib_Issue_Id INT(10),
+    Book_No int(6),
+    Member_Id int(5),
+    Issue_Date date,
+    Return_Date date);
+    
+alter table Issue add constraint I1 primary key(Lib_Issue_id);
+alter table Issue add constraint I2 foreign key(Member_Id) references Member(Member_Id);
+alter table Issue add constraint I3 foreign key(Book_No) references Books(Book_No);
+desc ISSUE;
+
+
+
+/* data entry*/
+
+/* inserting into member table */
+
+insert into member
+values (1,'Sayantan Sinha', 'Pune', '2010-12-10', 'Lifetime', 2000, 6, 50);
+
+insert into member
+values (2, 'Abhirup Sarkar', 'Kolkata', '2011-1-19', 'Annual', 1400, 3, 0);
+
+insert into member
+values (3, 'Ritesh, Bhuniya', 'Gujarat', '2011-2-20', 'Quarterly', 350, 2, 100);
+
+insert into member
+values (4, 'Paresh sen', 'Tripura', '2011-3-21', 'Half yearly', 700, 1, 200);
+
+insert into member
+values (5, 'Sohini Haldar', 'Birbhum', '2011-4-11', 'Lifetime', 2000, 6, 10);
+
+insert into member
+values (6, 'Suparna Biswas', 'Kolkata', '2011-4-12', 'Half Yearly', 700, 1, 0);
+
+insert into member
+values (7, 'Suranjana Basu', 'Purulia', '2011-6-30', 'Annual', 1400, 3, 50);
+
+insert into member
+values (8, 'Arpita Roy', 'Kolkata', '2011-7-31', 'Half yearly', 700, 1, 0);
+
+
+/* inserting into books table */
+
+insert into books
+values (101, 'Let us C', 'Denis Ritchie', 450, 'Others');
+
+insert into books
+values (102, 'Oracle – Complete Ref', 'Loni', 550, 'Database');
+
+insert into books
+values (103, 'Visual Basic 10', 'BPB', 700, 'Others');
+
+insert into books
+values (104, 'Mastering SQL', 'Loni', 450, 'Database');
+
+insert into books
+values (105, 'PL SQL-Ref', 'Scott Urman', 750, 'Database');
+
+insert into books
+values (106, 'UNIX', 'Sumitava Das', 300, 'System');
+
+insert into books
+values (107, 'Optics', 'Ghatak', 600, 'Science');
+
+insert into books
+values (108, 'Data Structure', 'G.S. Baluja', 350, 'Others');
+
+insert into books
+values (109, 'Mathematics for cs', 'Eric Lehman', null, 'others');
+
+insert into books
+values (110, 'Oracle – Complete Ref', 'Loni', 550, 'Database');
+
+/* inserting into issue table */
+
+
+insert into issue
+values (7001, 101, 1, '2011-1-10', default);
+
+insert into issue
+values (7002, 102, 2, '2011-1-25', default);
+
+insert into issue
+values (7003, 104, 1, '2011-2-01', default);
+
+insert into issue
+values (7004, 104, 2, '2011-3-15', default);
+
+insert into issue
+values (7005, 101, 4, '2011-4-04', default);
+
+insert into issue
+values (7006, 108, 5, '2011-4-12', default);
+
+insert into issue
+values (7007, 101, 8, '2011-8-01', default);
+
+insert into issue
+values (7008, 101, 1, '2011-8-12', default);
+
+
+/*queries*/
+
+/*Retrieve the Name of Book and Cost who has Maximum cost.*/
+select book_name, cost
+from books
+where cost= (select max(cost) from books);
+
+/*Calculate the Minimum cost, Average cost and Total cost value in BOOKS table and Rename the resulting attributes.*/
+select min(cost) as Minimum_cost,
+avg(cost) as average_cost,
+sum(cost) as total_cost
+from books;
+
+/*Retrieve the Name and ID of Members who’s issued book between 26th January 2011 and 14th April 2011.*/
+select m.member_id, m.member_name
+from member as m, issue as i
+where m.member_id = i.member_id and (i.issue_date between date '2011-01-26' and date '2011-04-14');
+
+/*Retrieve Book Name, Author Name and Category whose Category is not ‘OTHERS’.*/
+select book_name, author_name, catagory
+from books
+where catagory !='others';
+
+/*Retrieve the Book name and Author Name where 5th letter of the Author name is ’t’.*/
+
+select book_name, author_name
+from books
+where author_name like '____t%';
+
+/*How many Books are available whose Cost is greater than 350.*/
+select count(*)
+from books
+where cost>350;
+
+/*How many different Authors name are available in BOOKS table.*/
+select count(distinct author_name)
+from books;
+
+/*Calculate the following Numeric functions:
+a. What is the absolute value of -167.
+b. Calculate 8^6.
+c. Round up to 2 decimal points (134.56789).
+d. What is the square root of 144
+e. Floor and Ceil value of 13.15.
+*/
+select abs(-167);
+select power(8, 6);
+select round(134.56789, 2);
+select sqrt(144);
+select ceiling(13.15);
+select floor(13.15);
+
+/*Extract Year, Month, Day from System Date.*/
+select extract(year from current_date);
+select extract(month from current_date);
+select extract(day from current_date);
+
+/*What is the greatest value between 4, 5 and 17.*/
+select greatest(4, 5, 17);
+
+/*What is the Least value between '4', '5' and '17' and Express why resulting value of last two queries are same.*/
+select least('4', '5', '17');
+
+/*Extract 4 letters from 3th position of this word 'INFOSYS'.*/
+select substring('INFOSYS', 3, 4);
+
+/*What is the ASCII value of 'a' and 'S'.*/
+select ascii('a');
+select ascii('s');
+
+/*What is Length of this word 'INFOSYS' AND change 'S' with 'T'.*/
+select length('INFOSYS');
+select replace('INFOSYS', 'S', 'T');
+
+/*Retrieve the Names and Address of the Members who belong to Kolkata.*/
+select member_name, member_address
+from member
+where member_address='kolkata';
+
+/*Retrieve the Name of Books, where Cost prices are between 300 and 500.*/
+select book_name, cost
+from books
+where cost between 300 and 500;
+
+/*List the Name of the Members whose Membership type is “HALF YEARLY”.*/
+select member_name
+from member
+where Membership_Type="Half Yearly";
+
+/*List the Name of the Members who open their account in the year of 2011.*/
+select member_name
+from member
+where extract(year from Acc_Open_Date)=2011;
+
+/*Retrieve the Penalty Amount of the Members who has taken the book “LET US C”.*/
+select m.Penalty_Amount
+from member as m, books as b, issue as i
+where m.member_id=i.member_id and i.book_no=b.book_no and b.book_name="Let us C";
+
+/*Retrieve the no of Max books allowed to a Member, who has issued books on January.*/
+select m.member_name, m.max_book_allowed
+from member as m, issue as i
+where m.member_id=i.member_id and extract(month from i.issue_date)=1;
+
+/*Give the Names of the Members who have not issued any books.*/
+select m.member_name
+from member as m
+where m.member_id not in(select member_id from issue);
+
+
+/*Give the Name and Category of the books whose cost is not recorded.*/
+select book_name, catagory
+from books
+where cost is null;
+
+/*List all the books that are written by Author ‘’Loni’’ and has Price less than 600.*/
+select book_name
+from books
+where author_name="loni" and cost<600;
+
+/*List the Issue details for the Books that are not returned yet.*/
+
+/*List all the Books that belong to any one of the following categories Science, Database.*/
+select book_name
+from books
+where catagory="Science" or catagory="Database";
+
+
+select book_name
+from books 
+where catagory in ('Science', 'Database');
+
+/*List all the Members in the descending order of Penalty due on them.*/
+select member_name, penalty_amount
+from member
+order by penalty_amount desc;
+
+/*List all the Books in ascending order of category and descending order of price.*/
+select *
+from books
+order by catagory asc, cost desc;
+
+/*List all the Books that contain word ‘SQL’ in the Name of the Book.*/
+select book_name
+from books
+where book_name like '%sql%';
+
+/*List all the Members whose Name starts with S.*/
+select member_name
+from member
+where member_name like's%';
+
+/*List all the Members whose Name starts with S or A and contains letter T in it.*/
+select member_name
+from member
+where member_name like's%' or member_name like 'a%' or member_name like '%t%';
+
+/*List the Entire Book name in INIT CAP and Author Name in UPPER case in the descending order of the Book Name.*/
+select upper(book_name) as 'Book_Name', upper(author_name) as 'Author_Name'
+from books
+order by book_name desc;
+
+select concat(upper(substring(book_name, 1,1)), lower(substring(book_name,2)))
+from books
+order by book_name desc;
+
+/*List the data in the book table with 
+category data displayed as ‘D’ for Database, ‘S’ for Science, ‘R’ for RDBMS and ‘O’ for all the others.*/
+select book_name, substr(catagory,1,1) as 'catagory'
+from books;
+
+
+
+/*List the various CATEGORIES and COUNT OF BOOKS in each category.*/
+
+select catagory, count(distinct(book_no)) as 'book_count' 
+from books group by catagory;
+
+/*2.	List the BOOK_NO and the NUMBER OF TIMES the Book is issued in the descending order of COUNT.*/
+
+select book_no, count(lib_issue_id) as 'issue_count' 
+from issue group by book_no
+order by issue_count desc;
+
+
+/*Group by book_no kore book_no Count kora jaben*/
+
+select Book_No as BookNo, count(Book_No) as IssueCount 
+from issue
+group by Book_No
+order by IssueCount desc;
+
+/*3.	Display the MEMBER ID and the NO OF BOOKS for each member that has issued more than 1 books.*/
+
+select member_id, count(book_no) as 'book_count' 
+from issue group by member_id 
+HAVING COUNT(book_no) > 1
+order by book_count desc;
+
+
+
+/* 4.	Display the BOOK NO and NO OF TIMES the same book is issued by the MEMBER in the descending order of count. */
+
+select issue.member_id, issue.book_no, count(*)
+from issue, books
+where issue.book_no=books.book_no
+group by issue.book_no
+having count(*)>0;
+
+select book_name, issue.book_no, count(*)
+from issue,books,member
+where issue.book_no=books.book_no and member.member_id = issue.member_id
+group by issue.book_no, book_name
+having count(*)>1;
+
+/* 6.	Copy the MEMBER, BOOKS and ISSUE tables and MEMBER_COPY, BOOKS_COPY, ISSUE_COPY respectively */
+
+create table member_copy as select * from member;
+select *
+from member_copy;
+
+create table books_copy as select * from books;
+
+create table issue_copy as select * from issue;
+
+/*7.	Create a table named QUERY1 with two attributes as BOOK_NO, ISSUE_DATE
+ and copy all information about BOOK_NO and ISSUE_DATE from ISSUE table to QUERY1 table.*/
+ 
+ create table query1(book_no int(10), issue_date date);
+ desc query1;
+ insert into query1(book_no) select book_no from books;
+ select * from query1;
+ insert into query1(issue_date) select issue_date from issue;
+ select * from query1;
