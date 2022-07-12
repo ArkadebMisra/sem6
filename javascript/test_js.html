@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+
+
+        <script type="text/javascript">
+
+            var v = (function(){return 10})();
+            console.log(v);
+            const fun = (n) =>{
+                return n
+            }
+            console.log(fun(200));
+
+            function wrapValue(n){
+                let local = n;
+                return (x) => x*local;
+            }
+            let wrap1 = wrapValue(1);
+            let wrap2 = wrapValue(2);
+            console.log(wrap1(5));
+            console.log(wrap2(5));
+
+        </script>
+    </body>
+</html>

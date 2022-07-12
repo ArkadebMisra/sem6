@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <form action="index.html" method="post">
+            <input type="password" name="pass" id="passField" value="">
+            <button type="button" name="button" id="showButton">show</button>
+        </form>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#showButton").click(function(){
+                    console.log($(this).html()+"asbsdf");
+                    let t = $("#passField").attr("type");
+                    if(t=="password"){
+                        $("#passField").attr("type", "text");
+                        $("#showButton").html("hide");
+                    }
+                    else{
+                        $("#passField").attr("type", "password");
+                        $("#showButton").html("show");
+                    }
+                });
+            });
+
+        </script>
+    </body>
+</html>

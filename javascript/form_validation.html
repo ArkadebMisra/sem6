@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <form action="index.html" method="post" onsubmit="return validate()">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name">
+            <br>
+            <label for="email">email</label>
+            <input type="text" name="email" id="email">
+            <p id="emailfeedback"></p>
+            <br>
+            <label for="phone">phone</label>
+            <input type="text" name="phone" id="phone">
+            <br>
+            <label for="pass">password</label>
+            <input type="password" name="pass" id="pass">
+            <br>
+            <label for="cpass">check password</label>
+            <input type="password" name="cpass" id="cpass">
+            <input type="submit" name="" value="submit">
+        </form>
+        <script type="text/javascript">
+            function validate(){
+                let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+                // console.log(regex.test(address))
+                let name = document.getElementById('name').value;
+                let email = document.getElementById('email').value;
+                let phone = document.getElementById('phone').value;
+                let pass = document.getElementById('pass').value;
+                let cpass = document.getElementById('cpass').value;
+                //checks if email follow the valid format
+                if(!regex.test(email)){
+                    // alert("god save us!")
+                    ef = document.getElementById('emailfeedback');
+                    ef.innerHTML = "please provide correct email";
+                    return false;
+                }
+
+                let regex1 = new RegExp('[0-9]{10}')
+                if(!regex1.test(phone)){
+                    return false;
+                }
+
+                if(pass !== cpass){
+                    return false;
+                }
+
+                return true;
+
+
+
+
+            }
+        </script>
+    </body>
+</html>

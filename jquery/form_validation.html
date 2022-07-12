@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <form action="index.html" method="post">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name">
+            <br>
+            <label for="email">email</label>
+            <input type="text" name="email" id="email">
+            <p id="emailfeedback"></p>
+            <br>
+            <label for="phone">phone</label>
+            <input type="text" name="phone" id="phone">
+            <br>
+            <label for="pass">password</label>
+            <input type="password" name="pass" id="pass">
+            <br>
+            <label for="cpass">check password</label>
+            <input type="password" name="cpass" id="cpass">
+            <input type="submit" name="" value="submit" id="submit">
+        </form>
+        <script type="text/javascript">
+            function validate_email(email){
+                let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}$');
+                return regex.test(email);
+            }
+
+            function validate_phone(phone){
+                let regex1 = new RegExp('[0-9]{10}')
+                return regex1.test(phone);
+            }
+
+            $(document).ready(function(){
+                $('#submit').click(function(){
+                    let email = $('#email').val();
+                    if(!validate_email(email)){
+                        return false;
+                    }
+
+                    let phone = $('#phone').val();
+                    if(!validate_phone(phone)){
+                        return false;
+                    }
+
+                    let pass = $('#pass').val();
+                    let cpass = $('#pass').val();
+                    if(pass!==cpass){
+                        return false
+                    }
+                    return true;
+                });
+                $('#phone').blur(function(){
+                    let phone = $('#phone').val();
+                    let len = phone.length;
+                    console.log(len);
+                    if(len<10){
+                        alert('phone no must be of length 10');
+                    }
+                });
+            });
+
+
+        </script>
+    </body>
+</html>

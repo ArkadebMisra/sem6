@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <h1>shop</h1>
+        <div id="products">
+            <p id="load">loading</p>
+        </div>
+    </body>
+    <script type="text/javascript">
+        function generateHtml(data){
+            let str = '<br>'+
+            '<p><b>Product Name:</b>'+ data.title +'</p>'+
+            '<img src="'+ data.image +'" height="500" width="500"></a>'+
+            '<p><b>Product Price:</b>'+ data.price +'</p>'+
+            '<p>------------------------------------------</p>';
+            return str;
+        }
+
+        $(document).ready(function(){
+            function callApi(){
+                $('#load').show();
+                let html = "";
+                $.ajax({
+                    url: 'https://fakestoreapi.com/products',
+                    type: 'GET',
+                    data:{limit:10},
+                    success: function(resp){
+                        $('#load').hide();
+                        // resp.json();
+                        console.log(resp);
+                        if(resp && resp.length){
+                            for(let i=0 ;i<resp.length;i++){
+                                html += generateHtml(resp[i]);
+                                $('#products').html(html);
+                            }
+                        }
+
+                    },
+                    error:function(err){
+                        console.log(err);
+                    },
+                });
+            }
+            callApi();
+        });
+    </script>
+</html>
