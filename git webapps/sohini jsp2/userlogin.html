@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="userlogin.jsp" method="POST" onsubmit="validate()">
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password">
+        <input type="submit" value="Login">
+
+    </form>
+</body>
+<script>
+    function validate(){
+        const name = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        console.log(email, password);
+        if(email != "" && password != ""){
+            if(password.length >= 8){
+                var hasNum = /\d/;
+                var hasCapital = /[A-Z]/;
+                if(hasNum.test(password) && hasCapital.test(password)){
+                    return true;
+                }
+                else{
+                    alert("Password must contain atleast one digit and one uppercase character");
+                    event.preventDefault();
+                    return false;
+                }
+            }
+            else{
+                alert("Password must have atleast 8 characters");
+                event.preventDefault();
+                return false;
+            }
+            
+        }
+        else{
+            alert("name and password cannot be empty");
+            event.preventDefault();
+            return false;
+        }
+    }
+</script>
+</html>
